@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Post } from '@nestjs/common';
-import { Body, Param } from '@nestjs/common/decorators';
+import { Controller, Get, Post ,Put} from '@nestjs/common';
+import { Body, Delete, Param } from '@nestjs/common/decorators';
 import { AppService } from '../app.service';
 import { UsersService } from './users.service';
 @Controller('users')
@@ -35,4 +35,18 @@ export class UserController {
   ){
    return this.usersService.getUser(userId)
   }
+  @Put(':userId')
+  updateUser(
+   @Param('userId')userId: string,
+   @Body('name') name: string,
+   @Body('age')age:number,
+   @Body('surname')surname: string,
+   @Body('email')email: string,
+   ){
+    return this.usersService.updateUser(userId, name, age, surname, email)
+   }
+   @Delete(':userId')
+   deleteUser(@Param('userId')userId: string){
+    this.usersService.deleteUser(userId)
+   }
 }
